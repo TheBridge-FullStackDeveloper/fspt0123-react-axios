@@ -1,5 +1,5 @@
 import { Link, useRoute } from "wouter";
-import Styled from './styles'
+import Styled from "./styles";
 
 const CustomLink = ({ href, children }) => {
   const [isActive] = useRoute(href);
@@ -14,9 +14,7 @@ const CustomLink = ({ href, children }) => {
 const NavBar = () => {
   return (
     <Styled.Nav>
-      <CustomLink href="/clock">Clock</CustomLink>
-      <CustomLink href="/quotes">Quotes</CustomLink>
-      <CustomLink href="/about">About</CustomLink>
+      <CustomLink href="/countries">countries</CustomLink>
     </Styled.Nav>
   );
 };
