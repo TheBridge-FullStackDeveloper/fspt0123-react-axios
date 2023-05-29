@@ -1,4 +1,4 @@
-import { useTime } from "../../hooks/useTime";
+import { useTime } from "../../hooks";
 import Format from "../Format";
 import Styled from "./styles";
 
