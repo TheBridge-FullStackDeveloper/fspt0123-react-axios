@@ -1,7 +1,3 @@
-import { useTime } from "./useTime";
-import { useTheme } from "./useTheme";
-
-export default {
-  useTime,
-  useTheme,
-};
+export { useQuote } from "./useQuote";
+export { useTheme } from "./useTheme";
+export { useTime } from "./useTime";
