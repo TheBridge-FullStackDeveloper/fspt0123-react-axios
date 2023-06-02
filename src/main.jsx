@@ -5,8 +5,9 @@ import { Redirect, Route, Switch } from "wouter";
 import NavBar from "./components/NavBar";
 import Countries from "./pages/Countries";
 import Country from "./pages/Country";
+import Books from "./pages/Books";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const Container = () => {
       <Switch>
         <Route path="/countries" component={Countries} />
         <Route path="/country/:name" component={Country} />
+        <Route path="/books" component={Books} />
         <Redirect to="/countries" />
       </Switch>
     </QueryClientProvider>

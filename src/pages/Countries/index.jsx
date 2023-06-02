@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { getAllCountries } from "../../services/countries";
 
