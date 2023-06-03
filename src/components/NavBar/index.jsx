@@ -15,6 +15,7 @@ const NavBar = () => {
   return (
     <Styled.Nav>
       <CustomLink href="/countries">countries</CustomLink>
+      <CustomLink href="/books">books</CustomLink>
     </Styled.Nav>
   );
 };
