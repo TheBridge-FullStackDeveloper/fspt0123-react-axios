@@ -1,6 +1,7 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
-export const BookList = ({ data, deleteMutate, setPayload }) => {
+export const BookList = ({ data, deleteMutate, setIsUpdate }) => {
   return (
     <div>
       {data.map((book) => {
@@ -8,17 +9,18 @@ export const BookList = ({ data, deleteMutate, setPayload }) => {
           <div key={book.id}>
             <p>
               {book.author} - {book.name} -{" "}
-              <button
+              <Button
                 onClick={() => {
                   deleteMutate({ bookId: book.id });
                 }}
               >
                 Delete
-              </button>
+              </Button>
               -
-              <button
+              <Button
+                variant="secondary"
                 onClick={() => {
-                  setPayload({
+                  setIsUpdate({
                     author: book.author,
                     name: book.name,
                     isbn: book.isbn,
@@ -27,7 +29,7 @@ export const BookList = ({ data, deleteMutate, setPayload }) => {
                 }}
               >
                 Update
-              </button>
+              </Button>
             </p>
           </div>
         );

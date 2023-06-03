@@ -7,23 +7,36 @@ import {
   updateBook,
 } from "../../services/books";
 import { BookList } from "./BookList";
-import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
+import BookForm from "./Form";
+
+function isEmpty(obj) {
+  for (const prop in obj) {
+    if (Object.hasOwn(obj, prop)) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 const Books = () => {
   const { data } = useQuery(["books"], () => getBooks());
-
-  const [payload, setPayload] = useState({});
+  const [updatePayload, setUpdatePayload] = useState({});
 
   const queryClient = useQueryClient();
 
-  const { mutate: createMutate } = useMutation({
-    mutationFn: () => {
-      createBook({ payload });
+  const { mutate: createMutate, isError } = useMutation({
+    mutationFn: (data) => {
+      createBook({ payload: data });
     },
     onSuccess: () => {
       queryClient.invalidateQueries("books");
     },
   });
+
+  console.log(isError);
 
   const { mutate: deleteMutate } = useMutation({
     mutationFn: (payload) => deleteBook(payload),
@@ -33,7 +46,7 @@ const Books = () => {
   });
 
   const { mutate: updateMutate } = useMutation({
-    mutationFn: () => updateBook({ payload }),
+    mutationFn: (data) => updateBook({ payload: data }),
     onSuccess: () => {
       queryClient.invalidateQueries("books");
     },
@@ -48,72 +61,19 @@ const Books = () => {
       <BookList
         data={data}
         deleteMutate={deleteMutate}
-        setPayload={setPayload}
+        setIsUpdate={setUpdatePayload}
       />
-      <div>
-        <label htmlFor="">
-          Author
-          <input
-            type="text"
-            name="author"
-            value={payload.author}
-            onChange={(e) => {
-              setPayload({
-                ...payload,
-                [e.target.name]: e.target.value,
-              });
-            }}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="">
-          Name
-          <input
-            value={payload.name}
-            type="text"
-            name="name"
-            onChange={(e) => {
-              setPayload({
-                ...payload,
-                [e.target.name]: e.target.value,
-              });
-            }}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="">
-          isbn
-          <input
-            value={payload.isbn}
-            type="text"
-            name="isbn"
-            onChange={(e) => {
-              setPayload({
-                ...payload,
-                [e.target.name]: e.target.value,
-              });
-            }}
-          />
-        </label>
-      </div>
-      <Button
-        onClick={() => {
-          createMutate();
-        }}
-        variant="secondary"
-      >
-        Submit
-      </Button>
-      <Button
-        onClick={() => {
-          updateMutate();
-        }}
-        variant="primary"
-      >
-        Update
-      </Button>
+      <BookForm onSubmit={createMutate} defaultValues={{}} />
+      <Modal show={!isEmpty(updatePayload)} onHide={() => setUpdatePayload({})}>
+        <Modal.Dialog>
+          <Modal.Header closeButton>
+            <Modal.Title>Update Book</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <BookForm onSubmit={updateMutate} defaultValues={updatePayload} />
+          </Modal.Body>
+        </Modal.Dialog>
+      </Modal>
     </div>
   );
 };

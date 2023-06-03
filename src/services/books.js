@@ -7,7 +7,8 @@ const getBooks = () => {
 const createBook = ({ payload }) => {
   return axios
     .post("http://localhost:3000/books", payload)
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((err) => err);
 };
 
 const updateBook = ({ payload }) => {
