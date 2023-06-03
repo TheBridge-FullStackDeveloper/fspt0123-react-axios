@@ -36,8 +36,6 @@ const Books = () => {
     },
   });
 
-  console.log(isError);
-
   const { mutate: deleteMutate } = useMutation({
     mutationFn: (payload) => deleteBook(payload),
     onSuccess: () => {
