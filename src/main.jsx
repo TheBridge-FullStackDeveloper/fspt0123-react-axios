@@ -7,7 +7,7 @@ import Countries from "./pages/Countries";
 import Country from "./pages/Country";
 import Books from "./pages/Books";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -18,12 +18,14 @@ const Container = () => {
     <QueryClientProvider client={queryClient}>
       <NavBar />
 
-      <Switch>
-        <Route path="/countries" component={Countries} />
-        <Route path="/country/:name" component={Country} />
-        <Route path="/books" component={Books} />
-        <Redirect to="/countries" />
-      </Switch>
+      <div style={{ padding: "24px" }}>
+        <Switch>
+          <Route path="/countries" component={Countries} />
+          <Route path="/country/:name" component={Country} />
+          <Route path="/books" component={Books} />
+          <Redirect to="/countries" />
+        </Switch>
+      </div>
     </QueryClientProvider>
   );
 };

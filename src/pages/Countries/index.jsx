@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { getAllCountries } from "../../services/countries";
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const Countries = () => {
   const { data: countries = [], isLoading } = useQuery(["countries"], () =>
@@ -12,15 +13,16 @@ const Countries = () => {
   if (countries.length === 0) return <h1>No hay countries</h1>;
 
   return (
-    <div>
+    <ListGroup>
       {countries.map((country) => (
-        <div key={country.cca2}>
+        <ListGroup.Item key={country.cca2}>
           <Link href={`/country/${country.name.common}`}>
             {country.name.common}
+            {country.flag}
           </Link>
-        </div>
+        </ListGroup.Item>
       ))}
-    </div>
+    </ListGroup>
   );
 };
 

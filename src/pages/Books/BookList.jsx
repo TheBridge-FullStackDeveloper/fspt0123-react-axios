@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
 
 export const BookList = ({ data, deleteMutate, setIsUpdate }) => {
   return (
-    <div>
+    <ListGroup>
       {data.map((book) => {
         return (
-          <div key={book.id}>
+          <ListGroup.Item key={book.id}>
             <p>
               {book.author} - {book.name} -{" "}
               <Button
@@ -16,9 +17,9 @@ export const BookList = ({ data, deleteMutate, setIsUpdate }) => {
               >
                 Delete
               </Button>
-              -
               <Button
                 variant="secondary"
+                style={{ margin: "0 8px" }}
                 onClick={() => {
                   setIsUpdate({
                     author: book.author,
@@ -31,9 +32,9 @@ export const BookList = ({ data, deleteMutate, setIsUpdate }) => {
                 Update
               </Button>
             </p>
-          </div>
+          </ListGroup.Item>
         );
       })}
-    </div>
+    </ListGroup>
   );
 };

@@ -8,6 +8,10 @@ import {
 } from "../../services/books";
 import { BookList } from "./BookList";
 import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import BookForm from "./Form";
 
@@ -27,27 +31,26 @@ const Books = () => {
 
   const queryClient = useQueryClient();
 
+  const onSuccess = (data) => {
+    if (data.code === "ERR_BAD_RESPONSE") {
+      throw new Error(data.message);
+    }
+    queryClient.invalidateQueries("books");
+  };
+
   const { mutate: createMutate, isError } = useMutation({
-    mutationFn: (data) => {
-      createBook({ payload: data });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries("books");
-    },
+    mutationFn: (data) => createBook({ payload: data }),
+    onSuccess,
   });
 
   const { mutate: deleteMutate } = useMutation({
     mutationFn: (payload) => deleteBook(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries("books");
-    },
+    onSuccess,
   });
 
   const { mutate: updateMutate } = useMutation({
     mutationFn: (data) => updateBook({ payload: data }),
-    onSuccess: () => {
-      queryClient.invalidateQueries("books");
-    },
+    onSuccess,
   });
 
   if (!data) {
@@ -55,13 +58,20 @@ const Books = () => {
   }
 
   return (
-    <div>
-      <BookList
-        data={data}
-        deleteMutate={deleteMutate}
-        setIsUpdate={setUpdatePayload}
-      />
-      <BookForm onSubmit={createMutate} defaultValues={{}} />
+    <Container>
+      <Row>
+        <Col>
+          <BookList
+            data={data}
+            deleteMutate={deleteMutate}
+            setIsUpdate={setUpdatePayload}
+          />
+        </Col>
+        <Col>
+          <BookForm onSubmit={createMutate} defaultValues={{}} />
+        </Col>
+      </Row>
+
       <Modal show={!isEmpty(updatePayload)} onHide={() => setUpdatePayload({})}>
         <Modal.Dialog>
           <Modal.Header closeButton>
@@ -72,7 +82,12 @@ const Books = () => {
           </Modal.Body>
         </Modal.Dialog>
       </Modal>
-    </div>
+      {isError && (
+        <Alert key="danger" variant="danger">
+          Error on submit the book
+        </Alert>
+      )}
+    </Container>
   );
 };
 

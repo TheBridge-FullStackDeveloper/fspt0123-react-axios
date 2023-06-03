@@ -1,26 +1,35 @@
 import axios from "axios";
 
+const instance = axios.create({
+  baseURL: "http://localhost:3000",
+});
+
 const getBooks = () => {
-  return axios.get("http://localhost:3000/books").then((res) => res.data);
+  return instance
+    .get("/books")
+    .then((res) => res.data)
+    .catch((err) => err);
 };
 
 const createBook = ({ payload }) => {
-  return axios
-    .post("http://localhost:3000/books", payload)
+  return instance
+    .post("/books", payload)
     .then((res) => res.data)
     .catch((err) => err);
 };
 
 const updateBook = ({ payload }) => {
-  return axios
-    .put("http://localhost:3000/books/" + payload.id, payload)
-    .then((res) => res.data);
+  return instance
+    .put("/books/" + payload.id, payload)
+    .then((res) => res.data)
+    .catch((err) => err);
 };
 
 const deleteBook = ({ bookId }) => {
-  return axios
-    .delete("http://localhost:3000/books/" + bookId)
-    .then((res) => res.data);
+  return instance
+    .delete("/books/" + bookId)
+    .then((res) => res.data)
+    .catch((err) => err);
 };
 
 export { getBooks, createBook, deleteBook, updateBook };

@@ -1,4 +1,6 @@
 import { Link, useRoute } from "wouter";
+import Navbar from "react-bootstrap/Navbar";
+
 import Styled from "./styles";
 
 const CustomLink = ({ href, children }) => {
@@ -15,10 +17,12 @@ const CustomLink = ({ href, children }) => {
 
 const NavBar = () => {
   return (
-    <Styled.Nav>
-      <CustomLink href="/countries">countries</CustomLink>
-      <CustomLink href="/books">books</CustomLink>
-    </Styled.Nav>
+    <Navbar bg="light">
+      <Styled.Nav>
+        <CustomLink href="/countries">countries</CustomLink>
+        <CustomLink href="/books">books</CustomLink>
+      </Styled.Nav>
+    </Navbar>
   );
 };
 
