@@ -5,7 +5,7 @@ import { getCountryDetail } from "../../services/countries";
 const Country = () => {
   const [, params] = useRoute("/country/:name");
 
-  const { data: country, isFetching } = useQuery("country", () =>
+  const { data: country, isFetching } = useQuery(["country"], () =>
     getCountryDetail({ params })
   );
 

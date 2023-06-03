@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { getAllCountries } from "../../services/countries";
 
 const Countries = () => {
-  const { data: countries, isLoading } = useQuery("countries", () =>
+  const { data: countries = [], isLoading } = useQuery(["countries"], () =>
     getAllCountries()
   );
 

@@ -2,11 +2,13 @@ import { Link, useRoute } from "wouter";
 import Styled from "./styles";
 
 const CustomLink = ({ href, children }) => {
-  const [isActive] = useRoute(href);
+  const [isactive] = useRoute(href);
 
   return (
     <Link {...{ href }}>
-      <Styled.Anchor {...{ href, isActive }}>{children}</Styled.Anchor>
+      <Styled.Anchor {...{ href, isactive: isactive.toString() }}>
+        {children}
+      </Styled.Anchor>
     </Link>
   );
 };
