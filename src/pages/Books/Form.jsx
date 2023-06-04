@@ -14,6 +14,7 @@ const FormBook = ({ onSubmit, defaultValues }) => {
   });
 
   useEffect(() => {
+    // reset de los valores del formulario si defaultValues cambia
     reset(defaultValues);
   }, [defaultValues]);
 

@@ -9,8 +9,10 @@ import Books from "./pages/Books";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Importar el QueryClient y el QueryClientProvider
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+// Crear una instancia del QueryClient
 const queryClient = new QueryClient();
 
 const Container = () => {

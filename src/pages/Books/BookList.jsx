@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
+// Componente per a mostrar la lista de libros
 export const BookList = ({ data, deleteMutate, setIsUpdate }) => {
   return (
     <ListGroup>

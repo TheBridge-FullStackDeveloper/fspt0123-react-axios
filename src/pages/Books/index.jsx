@@ -26,7 +26,8 @@ function isEmpty(obj) {
 }
 
 const Books = () => {
-  const { data } = useQuery(["books"], () => getBooks());
+  // hook de react-query para hacer la petición y recoger los datos dentro de la variable data
+  const { data = [] } = useQuery(["books"], () => getBooks());
   const [updatePayload, setUpdatePayload] = useState({});
 
   const queryClient = useQueryClient();
@@ -35,23 +36,31 @@ const Books = () => {
     if (data.code === "ERR_BAD_RESPONSE") {
       throw new Error(data.message);
     }
+    // Invalidar la query para que se vuelva a hacer la petición
     queryClient.invalidateQueries("books");
   };
 
+  // hook de react-query para hacer un POST a la API
   const { mutate: createMutate, isError } = useMutation({
     mutationFn: (data) => createBook({ payload: data }),
     onSuccess,
   });
 
+  // hook de react-query para hacer un DELETE a la API
   const { mutate: deleteMutate } = useMutation({
     mutationFn: (payload) => deleteBook(payload),
     onSuccess,
   });
 
+  // hook de react-query para hacer un PUT a la API
   const { mutate: updateMutate } = useMutation({
     mutationFn: (data) => updateBook({ payload: data }),
     onSuccess,
   });
+
+  if (data.message) {
+    return <p>{data.message} - el backend esta corriendo?</p>;
+  }
 
   if (!data) {
     return <p>No hay libros</p>;
